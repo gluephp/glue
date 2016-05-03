@@ -25,5 +25,11 @@ class ServiceProvider implements Providers\ServiceProviderInterface
         $app->singleton('Glue\Http\Response');
         $app->alias('Glue\Http\Response', 'response');
 
+        $app->singleton('Glue\Http\Session');
+        $app->alias('Glue\Http\Session', 'session');
+
+        // Config
+        $app->singleton('Glue\Config\Config');
+        $app->alias('Glue\Config\Config', 'config');
     }
 }

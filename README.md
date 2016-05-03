@@ -10,6 +10,38 @@ It's built to be extendable and only comes with the most basic features out of t
 3. Request - [symfony/http-foundation](https://github.com/symfony/http-foundation)
 4. Response - [symfony/http-foundation](https://github.com/symfony/http-foundation)
 5. Sessions - [symfony/http-foundation](https://github.com/symfony/http-foundation)
+6. Config - [maer/config](https://github.com/magnus-eriksson/config)
 
-...more info will come
+## Installation
+
+Use [Composer](http://getcomposer.org):
+
+```bash
+$ composer require gluephp/glue dev-develop
+```
+
+## Simple example
+
+It basically works like any other micro framework:
+
+```php
+<?php
+
+// Include Composers autoloader
+include 'path/to/vendor/autoload.php';
+
+// Initialize the app
+$app = new Glue\App;
+
+// Create a route
+$app->router->get('/', function() {
+    return 'Hello World';
+});
+
+// Run the app
+$app->run();
+```
+
+## More...
+...info will come
 
