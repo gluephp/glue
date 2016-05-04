@@ -2,28 +2,31 @@
 
 interface TemplateEngineInterface
 {
+
     /**
      * Add a template folder
      * 
-     * @param string $path  Absolute path to folder
-     * @param string $name  Prefixed name
+     * @param string $path       Absolute path to folder
+     * @param string $namespace  Prefixed name
      */
-    public function setTemplatePath($path, $name = null);
+    public function addTemplateFolder($path, $namespace = null);
     
+
     /**
      * Render a template
      * 
      * @param  string $template
-     * @param  array  $data
+     * @param  array  $params
      * @return string
      */
-    public function render($template, array $data = []);
+    public function render($template, array $params = []);
+
     
     /**
      * Add global variables for all templates
      * 
      * @param array $data
      */
-    public function addGlobal(array $data = []);
-    
+    public function sharedData(array $data = []);
+
 }

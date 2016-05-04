@@ -14,7 +14,7 @@
         "illuminate/container": "4.2.*",
         "phroute/phroute": "2.1.*",
         "symfony/http-foundation": "3.0.*",
-        "maer/config": "1.*"        
+        "maer/config": "1.*"
     },
     "autoload": {
         "psr-4": {
