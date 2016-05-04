@@ -1,6 +1,6 @@
 <?php namespace Glue;
 
-use Glue\Providers\ServiceProviderInterface;
+use Glue\Interfaces\ServiceProviderInterface;
 use Illuminate\Container\Container;
 use Phroute\Phroute\Dispatcher;
 use Phroute\Phroute\HandlerResolverInterface;
@@ -90,7 +90,7 @@ class App extends Container
             
         } catch(\Exception $e) {
 
-            throw new \Exception("Unhandled route exception");
+            throw $e;
 
         }
 

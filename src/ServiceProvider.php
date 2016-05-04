@@ -4,7 +4,7 @@ use Glue\App;
 use Glue\Http\Request;
 use Symfony\Component\HttpFoundation\Request as SymfonyRequest;
 
-class ServiceProvider implements Providers\ServiceProviderInterface
+class ServiceProvider implements Interfaces\ServiceProviderInterface
 {
     public function register(App $app)
     {

@@ -1,4 +1,4 @@
-<?php namespace Glue\Providers;
+<?php namespace Glue\Interfaces;
 
 use Glue\App;
 
