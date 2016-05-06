@@ -73,10 +73,10 @@ class App extends Container
                 $httpCode = $response->getStatusCode();
             }
         
-        } catch(HttpRouteNotFoundException $e) {
+#        } catch(HttpRouteNotFoundException $e) {
 
-            $response = $this->router->resolveErrorHandler(Response::HTTP_NOT_FOUND);
-            $httpCode = Response::HTTP_NOT_FOUND;
+#            $response = $this->router->resolveErrorHandler(Response::HTTP_NOT_FOUND);
+#            $httpCode = Response::HTTP_NOT_FOUND;
 
         } catch(HttpMethodNotAllowedException $e) {
 
@@ -89,6 +89,11 @@ class App extends Container
             }
             
         } catch(\Exception $e) {
+
+            if ($this->bound('Psr\Log\LoggerInterface')) {
+                $this->make('Psr\Log\LoggerInterface')
+                    ->critical($e->getMessage(), [__METHOD__]);
+            }
 
             throw $e;
 
