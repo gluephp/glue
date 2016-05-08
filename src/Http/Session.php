@@ -1,6 +1,6 @@
 <?php namespace Glue\Http;
 
-use Symfony\Component\HttpFoundation\Session as SymfonySession;
+use Symfony\Component\HttpFoundation\Session\Session as SymfonySession;
 
 class Session
 {
