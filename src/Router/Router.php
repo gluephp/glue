@@ -14,7 +14,7 @@ class Router extends RouteCollector
 
     /**
      * Set callback for route not found
-     * 
+     *
      * @param  Closure $callback
      */
     public function notFound(Closure $callback)
@@ -25,7 +25,7 @@ class Router extends RouteCollector
 
     /**
      * Set callback for method not allowed
-     * 
+     *
      * @param  Closure $callback
      */
     public function methodNotAllowed(Closure $callback)
@@ -36,7 +36,7 @@ class Router extends RouteCollector
 
     /**
      * Resolve an error handler
-     * 
+     *
      * @return [type] [description]
      */
     public function resolveErrorHandler($errorCode)
@@ -49,7 +49,7 @@ class Router extends RouteCollector
 
     /**
      * Resolve a named route
-     * 
+     *
      * @param   $name
      * @param   array   $args
      * @param   boolean $noInitialSlash
@@ -58,7 +58,7 @@ class Router extends RouteCollector
     public function route($name, array $args = null, $noInitialSlash = false)
     {
         $route = ltrim(parent::route($name, $args), '/');
-        
+
         return $noInitialSlash
             ? $route
             : '/' . $route;

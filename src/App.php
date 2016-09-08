@@ -26,7 +26,7 @@ class App extends Container
 
     /**
      * Register a Service Provider
-     * 
+     *
      * @param  ServiceProviderInterface $provider
      */
     public function register(ServiceProviderInterface $provider)
@@ -38,22 +38,25 @@ class App extends Container
 
     /**
      * Run the application and dispatch the router
-     * 
+     *
      * @param  string   $method
      * @param  string   $path
      */
     public function run($method = null, $path = null)
     {
         $method = $method ?: $this->request->getMethod();
-        $path   = $path ?: $this->request->getPathInfo();
+
+        // Request::getPathInfo() isn't always correct (Like when the app is udner
+        // an alias in Apache) so we need to check the actual path.
+        $path   = $path ?: '/' . trim(strtok($this->request->getRequestUri(), '?'), '/');
 
         $this->dispatchRouter($method, $path)->send();
     }
 
-    
+
     /**
      * Dispatch the router
-     * 
+     *
      * @param  string $method
      * @param  string $path
      * @return mixed
@@ -62,17 +65,17 @@ class App extends Container
     {
         $resolver   = $this->make('Glue\Router\RouterResolver');
         $dispatcher = new Dispatcher($this->router->getData(), $resolver);
-        
+
         $httpCode = Response::HTTP_OK;
         $allow    = null;
 
         try {
-        
+
             $response = $dispatcher->dispatch($method, $path);
             if ($response instanceof Response) {
                 $httpCode = $response->getStatusCode();
             }
-        
+
         } catch(HttpRouteNotFoundException $e) {
 
             $response = $this->router->resolveErrorHandler(Response::HTTP_NOT_FOUND);
@@ -87,7 +90,7 @@ class App extends Container
                 // Save it so we can add it to the response header
                 $allow = trim(explode(':', $e->getMessage())[1]);
             }
-            
+
         } catch(\Exception $e) {
 
             if ($this->bound('Psr\Log\LoggerInterface')) {
