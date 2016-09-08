@@ -45,10 +45,7 @@ class App extends Container
     public function run($method = null, $path = null)
     {
         $method = $method ?: $this->request->getMethod();
-
-        // Request::getPathInfo() isn't always correct (Like when the app is udner
-        // an alias in Apache) so we need to check the actual path.
-        $path   = $path ?: '/' . trim(strtok($this->request->getRequestUri(), '?'), '/');
+        $path   = $path ?: $this->request->currentPath();
 
         $this->dispatchRouter($method, $path)->send();
     }

@@ -21,7 +21,7 @@ class Request
 
     /**
      * Get a query value from the $_GET super global
-     * 
+     *
      * @param  string   $key
      * @param  mixed    $fallback
      * @return mixed
@@ -36,7 +36,7 @@ class Request
 
     /**
      * Get a parameter value from the $_POST super global
-     * 
+     *
      * @param  string   $key
      * @param  mixed    $fallback
      * @return mixed
@@ -51,7 +51,7 @@ class Request
 
     /**
      * Get a cookie value from the $_COOKIE super global
-     * 
+     *
      * @param  string   $key
      * @param  mixed    $fallback
      * @return mixed
@@ -66,7 +66,7 @@ class Request
 
     /**
      * Get a file value from the $_FILES super global
-     * 
+     *
      * @param  string   $key
      * @param  mixed    $fallback
      * @return mixed
@@ -81,7 +81,7 @@ class Request
 
     /**
      * Get a server value from the $_SERVER super global
-     * 
+     *
      * @param  string   $key
      * @param  mixed    $fallback
      * @return mixed
@@ -96,7 +96,7 @@ class Request
 
     /**
      * Get a request header value
-     * 
+     *
      * @param  string   $key
      * @param  mixed    $fallback
      * @return mixed
@@ -118,8 +118,21 @@ class Request
         if (!method_exists($this->request, $method)) {
             throw new \Exception("Call to undefined method " . $method);
         }
-        
+
         return call_user_func_array([$this->request, $method], $args);
     }
 
+
+    /**
+     * Get the current path
+     *
+     * @return string
+     */
+    public function currentPath()
+    {
+        return trim(
+            strtok($this->request->getRequestUri(), '?'),
+            '/'
+        );
+    }
 }
