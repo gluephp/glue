@@ -16,7 +16,7 @@ class RouterResolver implements HandlerResolverInterface
     {
         // Just to be cool, let's allow controllers in the format:
         // ControllerName@methodName
-        if (is_array($handler) && strpos($handler, '@') !== false) {
+        if (is_string($handler) && strpos($handler, '@') !== false) {
             $handler = explode('@', $handler);
         }
 
