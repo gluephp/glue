@@ -22,7 +22,7 @@ class Session
 
     /**
      * Set a flash message
-     * 
+     *
      * @param string    $key
      * @param mixed     $value
      */
@@ -35,7 +35,7 @@ class Session
 
     /**
      * Add a flash message
-     * 
+     *
      * @param string    $key
      * @param mixed     $value
      */
@@ -48,12 +48,12 @@ class Session
 
     /**
      * Get a flash message
-     * 
+     *
      * @param  string   $key
-     * @param  mixed    $fallback
+     * @param  array    $fallback
      * @return mixed
      */
-    public function getFlash($key, $fallback = null)
+    public function getFlash($key, $fallback = [])
     {
         return $this->session->getFlashBag()->get($key, $fallback);
     }
@@ -61,7 +61,7 @@ class Session
 
     /**
      * Clear flash messages
-     * 
+     *
      * @param mixed     $value
      */
     public function clearFlash($key, $value)
@@ -80,7 +80,7 @@ class Session
         if (!method_exists($this->session, $method)) {
             throw new \Exception("Call to undefined method " . $method);
         }
-        
+
         return call_user_func_array([$this->session, $method], $args);
     }
 }
