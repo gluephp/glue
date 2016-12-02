@@ -1,5 +1,7 @@
 <?php namespace Glue;
 
+use Closure;
+use Exception;
 use Glue\Interfaces\ServiceProviderInterface;
 use Illuminate\Container\Container;
 use Phroute\Phroute\Dispatcher;
@@ -13,7 +15,14 @@ class App extends Container
     /**
      * @var array
      */
-    protected $providers = [];
+    protected $providers  = [];
+
+    /**
+     * Added methods
+     *
+     * @var array
+     */
+    protected $methods = [];
 
 
     public function __construct()
@@ -21,6 +30,41 @@ class App extends Container
         $this->register(
             $this->make('Glue\ServiceProvider')
         );
+    }
+
+
+    /**
+     * Add a method to the container
+     *
+     * @param  string  $name
+     * @param  Closure $closure
+     *
+     * @throws Exception Overriding a core method
+     */
+    public function addMethod($name, Closure $closure)
+    {
+        if (method_exists($this, $name)) {
+            throw new Exception('Overriding core methods not allowed.');
+        }
+
+        $this->methods[$name] = $closure;
+    }
+
+
+    /**
+     * Run an added container method
+     *
+     * @throws Exception Undefined method
+     *
+     * @return mixed
+     */
+    public function __call($method, $args)
+    {
+        if (array_key_exists($method, $this->methods)) {
+            return call_user_func_array($this->methods[$method], $args);
+        }
+
+        throw new Exception("Undefined method $method in " . __CLASS__);
     }
 
 
