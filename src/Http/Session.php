@@ -16,7 +16,9 @@ class Session
     public function __construct(SymfonySession $session = null)
     {
         $this->session = $session ?: new SymfonySession;
-        $this->session->start();
+        if (!headers_sent() && session_status() === PHP_SESSION_NONE) {
+            $this->session->start();
+        }
     }
 
 
